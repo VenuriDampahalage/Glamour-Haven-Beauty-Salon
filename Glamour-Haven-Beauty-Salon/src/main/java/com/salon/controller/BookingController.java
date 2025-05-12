@@ -104,6 +104,22 @@ public class BookingController extends HttpServlet {
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                 response.getWriter().write("error");
             }
+        } else if ("deleteBooking".equals(action)) {
+            try {
+                int bookingId = Integer.parseInt(request.getParameter("bookingId"));
+                boolean deleted = bookingService.deleteBooking(bookingId);
+                
+                response.setContentType("text/plain");
+                if (deleted) {
+                    response.getWriter().write("success");
+                } else {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().write("error");
+                }
+            } catch (Exception e) {
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                response.getWriter().write("error");
+            }
         }
     }
 }
