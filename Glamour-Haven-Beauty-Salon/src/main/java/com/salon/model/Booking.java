@@ -19,12 +19,28 @@ public class Booking {
         this.status = status;
     }
 
-    public int getId() { return id; }
-    public int getCustomerId() { return customerId; }
-    public int getServiceId() { return serviceId; }
-    public int getEmployeeId() { return employeeId; }
-    public String getDate() { return date; }
-    public String getTime() { return time; }
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public int getId() {
+        return id;
+    }
+    public int getCustomerId() {
+        return customerId;
+    }
+    public int getServiceId() {
+        return serviceId;
+    }
+    public int getEmployeeId() {
+        return employeeId;
+    }
+    public String getDate() {
+        return date;
+    }
+    public String getTime() {
+        return time;
+    }
+    public String getStatus() {
+        return status;
+    }
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }
