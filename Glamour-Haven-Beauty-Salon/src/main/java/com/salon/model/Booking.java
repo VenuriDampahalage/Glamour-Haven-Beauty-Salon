@@ -19,12 +19,14 @@ public class Booking {
         this.status = status;
     }
 
+    //getters
     public int getId() {
         return id;
     }
     public int getCustomerId() {
         return customerId;
     }
+
     public int getServiceId() {
         return serviceId;
     }
@@ -40,7 +42,33 @@ public class Booking {
     public String getStatus() {
         return status;
     }
+
+    //setters
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    public void setServiceId(int serviceId) {
+        this.serviceId = serviceId;
+    }
+
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
