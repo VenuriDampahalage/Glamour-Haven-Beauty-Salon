@@ -5,10 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeService {
+
+    //store Employee objects
     private List<Employee> employees = new ArrayList<>();
+    //handling Employee data
     private FileHandler fileHandler;
 
     public EmployeeService() {
+
         fileHandler = new FileHandler();
     }
 
