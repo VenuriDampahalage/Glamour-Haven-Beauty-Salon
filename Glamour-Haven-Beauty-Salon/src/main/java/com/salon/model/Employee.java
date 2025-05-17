@@ -4,21 +4,25 @@ public class Employee {
     private int id;
     private String name;
     private String specialization;
+    private String imagePath;
 
-    //Initializes a new instance of Employee with default values.
     public Employee() {
     }
 
-    //Initializes a new instance of Employee with the given values.
     public Employee(int id, String name, String specialization) {
         this.id = id;
         this.name = name;
         this.specialization = specialization;
     }
 
-    // return the employee's ID
-    public int getId() {
+    public Employee(int id, String name, String specialization, String imagePath) {
+        this.id = id;
+        this.name = name;
+        this.specialization = specialization;
+        this.imagePath = imagePath;
+    }
 
+    public int getId() {
         return id;
     }
 
@@ -34,12 +38,19 @@ public class Employee {
         this.name = name;
     }
 
-    // gets the specialization of the employee
     public String getSpecialization() {
         return specialization;
     }
 
     public void setSpecialization(String specialization) {
         this.specialization = specialization;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }
