@@ -1,0 +1,8 @@
+1,Haircut & Styling,45.00
+2,Manicure & Pedicure,35.00
+3,Facial Treatment,60.00
+4,Full Body Massage,80.00
+5,Bridal Makeup,100.00
+6,Hair Coloring,75.00
+7,Waxing,30.00
+8,Skin Treatment,55.00

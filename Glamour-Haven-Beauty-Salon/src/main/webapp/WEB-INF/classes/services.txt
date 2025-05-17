@@ -1,0 +1,8 @@
+1,Haircut & Styling,45.00,Professional haircut and styling service by our expert stylists,service_images/haircut.jpg
+2,Manicure & Pedicure,35.00,Luxurious nail care treatment for hands and feet,service_images/manicure.jpg
+3,Facial Treatment,60.00,Rejuvenating facial treatment for glowing skin,service_images/facial.jpg
+4,Full Body Massage,80.00,Relaxing full body massage to relieve stress and tension,service_images/massage.jpg
+5,Bridal Makeup,100.00,Complete bridal makeup package for your special day,service_images/bridal.jpg
+6,Hair Coloring,75.00,Professional hair coloring service with premium products,service_images/hair-color.jpg
+7,Waxing,30.00
+8,Skin Treatment,55.00 
