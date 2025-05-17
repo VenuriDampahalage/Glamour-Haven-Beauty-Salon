@@ -42,6 +42,33 @@ public class EmployeeDAO {
             e.printStackTrace();
         }
     }
+    public void updateEmployee(Employee employee) {
+        String sql = "UPDATE employees SET name = ?, specialization = ? WHERE id = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, employee.getName());
+            pstmt.setString(2, employee.getSpecialization());
+            pstmt.setInt(3, employee.getId());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void deleteEmployee(int id) {
+        String sql = "DELETE FROM employees WHERE id = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public Employee getEmployeeById(int id) {
         String sql = "SELECT * FROM employees WHERE id = ?";
