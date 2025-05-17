@@ -1,3 +1,4 @@
+//booking controller
 package com.salon.controller;
 
 import com.salon.model.Booking;
