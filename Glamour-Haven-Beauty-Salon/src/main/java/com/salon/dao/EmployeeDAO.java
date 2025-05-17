@@ -56,6 +56,18 @@ public class EmployeeDAO {
             e.printStackTrace();
         }
     }
+    public void deleteEmployee(int id) {
+        String sql = "DELETE FROM employees WHERE id = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     public Employee getEmployeeById(int id) {
