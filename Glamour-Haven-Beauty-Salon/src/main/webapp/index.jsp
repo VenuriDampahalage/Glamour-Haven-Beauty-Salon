@@ -173,6 +173,7 @@
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2.5rem;
             padding: 1rem;
+            min-height: 200px;
         }
 
         .service-card {
@@ -182,6 +183,9 @@
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
 
         .service-card:hover {
@@ -194,6 +198,7 @@
             height: 200px;
             object-fit: cover;
             transition: transform 0.5s ease;
+            aspect-ratio: 16/9;
         }
 
         .service-card:hover img {
@@ -460,6 +465,23 @@
         }
         /* End of Styles for Review Cards */
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true,
+                mirror: false
+            });
+
+            const serviceImages = document.querySelectorAll('.service-card img');
+            serviceImages.forEach(img => {
+                img.loading = 'lazy';
+                img.style.backgroundColor = '#f5f5f5';
+            });
+        });
+    </script>
 </head>
 <body>
 <header class="header">
@@ -598,13 +620,6 @@
     </div>
 </section>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-<script>
-    AOS.init({
-        duration: 1000,
-        once: true
-    });
-</script>
 <%@ include file="includes/footer.jsp" %>
 </body>
 </html>

@@ -66,10 +66,11 @@ public class CustomerController extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        customerService = new CustomerService(); // Existing
-        
         fileHandler = new FileHandler();
         fileHandler.setServletContext(getServletContext());
+        
+        customerService = new CustomerService();
+        customerService.setFileHandler(fileHandler);
 
         bookingService = new BookingService();
         bookingService.setFileHandler(fileHandler);
@@ -77,7 +78,7 @@ public class CustomerController extends HttpServlet {
         serviceService = new ServiceService();
         serviceService.setFileHandler(fileHandler);
 
-        employeeService = new EmployeeService(); // Assuming EmployeeService has setFileHandler
+        employeeService = new EmployeeService();
         employeeService.setFileHandler(fileHandler);
     }
 
