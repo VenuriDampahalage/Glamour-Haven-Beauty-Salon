@@ -62,19 +62,19 @@ public class FileHandler {
                     if (parts.length >= 5) {
                         // New format with role
                         customers.add(new Customer(
-                            Integer.parseInt(parts[0]), 
-                            parts[1], 
-                            parts[2], 
-                            parts[3],
-                            parts[4]
+                                Integer.parseInt(parts[0]),
+                                parts[1],
+                                parts[2],
+                                parts[3],
+                                parts[4]
                         ));
                     } else {
                         // Old format without role
                         customers.add(new Customer(
-                            Integer.parseInt(parts[0]), 
-                            parts[1], 
-                            parts[2], 
-                            parts[3]
+                                Integer.parseInt(parts[0]),
+                                parts[1],
+                                parts[2],
+                                parts[3]
                         ));
                     }
                 }
@@ -90,13 +90,14 @@ public class FileHandler {
             String realPath = context.getRealPath(USER_FILE);
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(realPath))) {
                 for (Customer customer : customers) {
-                    writer.write(String.format("%d,%s,%s,%s,%s%n",
-                        customer.getId(),
-                        customer.getUsername(),
-                        customer.getPassword(),
-                        customer.getEmail(),
-                        customer.getRole() != null ? customer.getRole() : "user"
+                    writer.write(String.format("%d,%s,%s,%s,%s",
+                            customer.getId(),
+                            customer.getUsername(),
+                            customer.getPassword(),
+                            customer.getEmail(),
+                            customer.getRole()
                     ));
+                    writer.newLine();
                 }
             }
         } catch (IOException e) {
@@ -113,13 +114,13 @@ public class FileHandler {
                 while ((line = reader.readLine()) != null) {
                     String[] parts = line.split(",");
                     bookings.add(new Booking(
-                        Integer.parseInt(parts[0]), // id
-                        Integer.parseInt(parts[1]), // customerId
-                        Integer.parseInt(parts[2]), // serviceId
-                        Integer.parseInt(parts[3]), // employeeId
-                        parts[4],                   // date
-                        parts[5],                   // time
-                        parts.length > 6 ? parts[6] : "Pending" // status (default to "Pending" if not present)
+                            Integer.parseInt(parts[0]), // id
+                            Integer.parseInt(parts[1]), // customerId
+                            Integer.parseInt(parts[2]), // serviceId
+                            Integer.parseInt(parts[3]), // employeeId
+                            parts[4],                   // date
+                            parts[5],                   // time
+                            parts.length > 6 ? parts[6] : "Pending" // status (default to "Pending" if not present)
                     ));
                 }
             }
@@ -135,12 +136,12 @@ public class FileHandler {
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(realPath))) {
                 for (Booking booking : bookings) {
                     writer.write(booking.getId() + "," +
-                               booking.getCustomerId() + "," +
-                               booking.getServiceId() + "," +
-                               booking.getEmployeeId() + "," +
-                               booking.getDate() + "," +
-                               booking.getTime() + "," +
-                               booking.getStatus());
+                            booking.getCustomerId() + "," +
+                            booking.getServiceId() + "," +
+                            booking.getEmployeeId() + "," +
+                            booking.getDate() + "," +
+                            booking.getTime() + "," +
+                            booking.getStatus());
                     writer.newLine();
                 }
             }
@@ -161,20 +162,20 @@ public class FileHandler {
                     if (parts.length == 3) {
                         // Old format: id, name, price
                         services.add(new Service(
-                            Integer.parseInt(parts[0]),
-                            parts[1],
-                            Double.parseDouble(parts[2]),
-                            "", // Empty description
-                            "default-service-image.jpg" // Default image
+                                Integer.parseInt(parts[0]),
+                                parts[1],
+                                Double.parseDouble(parts[2]),
+                                "", // Empty description
+                                "default-service-image.jpg" // Default image
                         ));
                     } else if (parts.length == 5) {
                         // New format: id, name, price, description, imagePath
                         services.add(new Service(
-                            Integer.parseInt(parts[0]),
-                            parts[1],
-                            Double.parseDouble(parts[2]),
-                            parts[3],
-                            parts[4]
+                                Integer.parseInt(parts[0]),
+                                parts[1],
+                                Double.parseDouble(parts[2]),
+                                parts[3],
+                                parts[4]
                         ));
                     }
                 }
@@ -190,11 +191,11 @@ public class FileHandler {
             String realPath = context.getRealPath(SERVICE_FILE);
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(realPath))) {
                 for (Service service : services) {
-                    writer.write(service.getId() + "," + 
-                               service.getName() + "," + 
-                               service.getPrice() + "," + 
-                               service.getDescription() + "," + 
-                               service.getImagePath());
+                    writer.write(service.getId() + "," +
+                            service.getName() + "," +
+                            service.getPrice() + "," +
+                            service.getDescription() + "," +
+                            service.getImagePath());
                     writer.newLine();
                 }
             }
@@ -234,23 +235,23 @@ public class FileHandler {
             // First try WEB-INF/classes location
             String realPath = context.getRealPath(EMPLOYEE_FILE);
             System.out.println("Trying to load employees from WEB-INF: " + realPath);
-            
+
             File webInfFile = new File(realPath);
             File resourceFile = new File("src/main/resources/employees.txt");
-            
+
             // If file doesn't exist in WEB-INF, try resources
             if (!webInfFile.exists() && resourceFile.exists()) {
                 System.out.println("Loading from resources instead: " + resourceFile.getAbsolutePath());
                 realPath = resourceFile.getAbsolutePath();
             }
-            
+
             // If neither file exists, create with default data
             if (!webInfFile.exists() && !resourceFile.exists()) {
                 System.out.println("No employee file found. Creating with default data.");
                 List<Employee> defaultEmployees = Arrays.asList(
-                    new Employee(1, "John Smith", "Hair Stylist", null),
-                    new Employee(2, "Emma Johnson", "Nail Technician", null),
-                    new Employee(3, "Michael Brown", "Massage Therapist", null)
+                        new Employee(1, "John Smith", "Hair Stylist", null),
+                        new Employee(2, "Emma Johnson", "Nail Technician", null),
+                        new Employee(3, "Michael Brown", "Massage Therapist", null)
                 );
                 saveEmployees(defaultEmployees);
                 return defaultEmployees;
@@ -279,10 +280,10 @@ public class FileHandler {
             String realPath = context.getRealPath(EMPLOYEE_FILE);
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(realPath))) {
                 for (Employee employee : employees) {
-                    writer.write(employee.getId() + "," + 
-                               employee.getName() + "," + 
-                               employee.getSpecialization() + "," +
-                               (employee.getImagePath() != null ? employee.getImagePath() : ""));
+                    writer.write(employee.getId() + "," +
+                            employee.getName() + "," +
+                            employee.getSpecialization() + "," +
+                            (employee.getImagePath() != null ? employee.getImagePath() : ""));
                     writer.newLine();
                 }
             }
@@ -316,7 +317,7 @@ public class FileHandler {
         List<String[]> salonReviews = new ArrayList<>();
         if (context == null) {
             System.err.println("FileHandler ERROR: ServletContext is not set. Cannot load salon reviews.");
-            return salonReviews; 
+            return salonReviews;
         }
         String salonReviewFilePath = context.getRealPath(SALON_GENERAL_REVIEW_FILE);
         if (salonReviewFilePath == null) {
@@ -327,13 +328,13 @@ public class FileHandler {
         File file = new File(salonReviewFilePath);
         if (!file.exists()) {
             System.out.println("FileHandler INFO: Salon reviews file does not exist at: " + salonReviewFilePath + ". Returning empty list.");
-            return salonReviews; 
+            return salonReviews;
         }
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             int count = 0;
             while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(":::", 2); 
+                String[] parts = line.split(":::", 2);
                 if (parts.length == 2) {
                     salonReviews.add(parts);
                     count++;
