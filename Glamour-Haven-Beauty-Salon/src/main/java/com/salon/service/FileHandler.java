@@ -90,14 +90,13 @@ public class FileHandler {
             String realPath = context.getRealPath(USER_FILE);
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(realPath))) {
                 for (Customer customer : customers) {
-                    writer.write(String.format("%d,%s,%s,%s,%s",
+                    writer.write(String.format("%d,%s,%s,%s,%s%n",
                         customer.getId(),
                         customer.getUsername(),
                         customer.getPassword(),
                         customer.getEmail(),
-                        customer.getRole()
+                        customer.getRole() != null ? customer.getRole() : "user"
                     ));
-                    writer.newLine();
                 }
             }
         } catch (IOException e) {
