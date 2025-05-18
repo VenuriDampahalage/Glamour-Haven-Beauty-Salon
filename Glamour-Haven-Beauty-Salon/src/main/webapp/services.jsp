@@ -287,15 +287,16 @@
                     for (Service service : services) {
                         String imagePath = service.getImagePath();
                         if (imagePath == null || imagePath.trim().isEmpty()) {
-                            imagePath = "images/default-service.jpg";
+                            imagePath = request.getContextPath() + "/images/default-service.jpg";
                         } else if (!imagePath.startsWith("http")) {
-                            imagePath = request.getContextPath() + "/" + imagePath;
+                            imagePath = request.getContextPath() + "/" + imagePath.replace("\\", "/");
                         }
+                        System.out.println("Service: " + service.getName() + ", Image path: " + imagePath);
             %>
             <div class="service-card">
                 <img src="<%= imagePath %>"
                      alt="<%= service.getName() %>"
-                     onerror="this.src='images/default-service.jpg'">
+                     onerror="this.src='<%= request.getContextPath() %>/images/default-service.jpg'">
                 <div class="service-content">
                     <h3><%= service.getName() %></h3>
                     <p><%= service.getDescription() != null ? service.getDescription() : "Experience our professional " + service.getName() + " service." %></p>

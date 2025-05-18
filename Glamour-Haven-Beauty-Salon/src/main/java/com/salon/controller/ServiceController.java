@@ -13,6 +13,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.ArrayList;
@@ -37,11 +39,16 @@ public class ServiceController extends HttpServlet {
             serviceService = new ServiceService();
             serviceService.setFileHandler(fileHandler);
             
-            // Create upload directory if it doesn't exist
-            String uploadPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIR;
-            File uploadDir = new File(uploadPath);
-            if (!uploadDir.exists()) uploadDir.mkdir();
+            // Create upload directory in the webapp folder
+            String webappPath = getServletContext().getRealPath("/");
+            File uploadDir = new File(webappPath, UPLOAD_DIR);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdirs();
+                System.out.println("Created upload directory at: " + uploadDir.getAbsolutePath());
+            }
         } catch (Exception e) {
+            System.err.println("Error in init(): " + e.getMessage());
+            e.printStackTrace();
             throw new ServletException("Failed to initialize ServiceController", e);
         }
     }
@@ -50,7 +57,9 @@ public class ServiceController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
         if (action == null || action.equals("list")) {
-            request.setAttribute("services", serviceService.getAllServices());
+            List<Service> services = serviceService.getAllServices();
+            System.out.println("Loading services, found: " + services.size());
+            request.setAttribute("services", services);
             
             // Load salon reviews
             List<String[]> salonReviews = fileHandler.loadSalonReviews();
@@ -85,6 +94,7 @@ public class ServiceController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
+        System.out.println("Processing action: " + action);
         
         if ("addService".equals(action)) {
             try {
@@ -92,13 +102,15 @@ public class ServiceController extends HttpServlet {
                 double price = Double.parseDouble(request.getParameter("price"));
                 String description = request.getParameter("description");
                 
+                System.out.println("Adding new service: " + name);
+                
                 // Handle file upload
                 Part filePart = request.getPart("image");
                 
                 // Validate file size
                 if (filePart.getSize() > MAX_FILE_SIZE) {
                     request.setAttribute("error", "File size exceeds maximum limit of 50MB");
-                    request.getRequestDispatcher("addService.jsp").forward(request, response);
+                    request.getRequestDispatcher("serviceForm.jsp").forward(request, response);
                     return;
                 }
                 
@@ -106,51 +118,90 @@ public class ServiceController extends HttpServlet {
                 String contentType = filePart.getContentType();
                 if (!contentType.startsWith("image/")) {
                     request.setAttribute("error", "Only image files are allowed");
-                    request.getRequestDispatcher("addService.jsp").forward(request, response);
+                    request.getRequestDispatcher("serviceForm.jsp").forward(request, response);
                     return;
                 }
                 
                 String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
                 String uniqueFileName = System.currentTimeMillis() + "_" + fileName;
-                String uploadPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIR;
                 
-                // Save the file
-                filePart.write(uploadPath + File.separator + uniqueFileName);
-                String imagePath = UPLOAD_DIR + File.separator + uniqueFileName;
+                // Save to permanent location in webapp directory
+                String webappPath = getServletContext().getRealPath("/");
+                File uploadDir = new File(webappPath, UPLOAD_DIR);
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdirs();
+                }
+                
+                File targetFile = new File(uploadDir, uniqueFileName);
+                System.out.println("Saving image to: " + targetFile.getAbsolutePath());
+                
+                // Copy the file
+                filePart.write(targetFile.getAbsolutePath());
+                String imagePath = UPLOAD_DIR + "/" + uniqueFileName;
                 
                 int id = serviceService.getAllServices().size() + 1;
                 Service service = new Service(id, name, price, description, imagePath);
                 serviceService.addService(service);
                 
+                System.out.println("Service added successfully with ID: " + id);
                 response.sendRedirect("ServiceController?action=manage");
             } catch (Exception e) {
-                request.setAttribute("error", "Error uploading file: " + e.getMessage());
-                request.getRequestDispatcher("addService.jsp").forward(request, response);
+                System.err.println("Error adding service: " + e.getMessage());
+                e.printStackTrace();
+                request.setAttribute("error", "Error adding service: " + e.getMessage());
+                request.getRequestDispatcher("serviceForm.jsp").forward(request, response);
             }
         } else if ("updateService".equals(action)) {
-            int id = Integer.parseInt(request.getParameter("id"));
-            String name = request.getParameter("name");
-            double price = Double.parseDouble(request.getParameter("price"));
-            String description = request.getParameter("description");
-            
-            // Handle file upload if new image is provided
-            Part filePart = request.getPart("image");
-            String imagePath = null;
-            
-            if (filePart != null && filePart.getSize() > 0) {
-                String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-                String uniqueFileName = System.currentTimeMillis() + "_" + fileName;
-                String uploadPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIR;
-                filePart.write(uploadPath + File.separator + uniqueFileName);
-                imagePath = UPLOAD_DIR + File.separator + uniqueFileName;
+            try {
+                int id = Integer.parseInt(request.getParameter("id"));
+                String name = request.getParameter("name");
+                double price = Double.parseDouble(request.getParameter("price"));
+                String description = request.getParameter("description");
+                
+                System.out.println("Updating service with ID: " + id);
+                
+                // Handle file upload if new image is provided
+                Part filePart = request.getPart("image");
+                String imagePath = null;
+                
+                if (filePart != null && filePart.getSize() > 0) {
+                    String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+                    String uniqueFileName = System.currentTimeMillis() + "_" + fileName;
+                    
+                    // Save to permanent location in webapp directory
+                    String webappPath = getServletContext().getRealPath("/");
+                    File uploadDir = new File(webappPath, UPLOAD_DIR);
+                    if (!uploadDir.exists()) {
+                        uploadDir.mkdirs();
+                    }
+                    
+                    File targetFile = new File(uploadDir, uniqueFileName);
+                    System.out.println("Saving updated image to: " + targetFile.getAbsolutePath());
+                    
+                    filePart.write(targetFile.getAbsolutePath());
+                    imagePath = UPLOAD_DIR + "/" + uniqueFileName;
+                }
+                
+                serviceService.updateService(id, name, price, description, imagePath);
+                System.out.println("Service updated successfully");
+                response.sendRedirect("ServiceController?action=manage");
+            } catch (Exception e) {
+                System.err.println("Error updating service: " + e.getMessage());
+                e.printStackTrace();
+                response.sendRedirect("ServiceController?action=manage");
             }
-            
-            serviceService.updateService(id, name, price, description, imagePath);
-            response.sendRedirect("ServiceController?action=manage");
         } else if ("deleteService".equals(action)) {
-            int id = Integer.parseInt(request.getParameter("id"));
-            serviceService.deleteService(id);
-            response.sendRedirect("ServiceController?action=manage");
+            try {
+                int id = Integer.parseInt(request.getParameter("id"));
+                System.out.println("Deleting service with ID: " + id);
+                serviceService.deleteService(id);
+                System.out.println("Service deleted successfully");
+                response.sendRedirect("ServiceController?action=manage");
+            } catch (Exception e) {
+                System.err.println("Error deleting service: " + e.getMessage());
+                e.printStackTrace();
+                response.sendRedirect("ServiceController?action=manage");
+            }
         }
     }
 }

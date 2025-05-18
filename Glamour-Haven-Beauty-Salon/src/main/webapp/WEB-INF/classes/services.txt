@@ -4,5 +4,5 @@
 4,Full Body Massage,80.00,Relaxing full body massage to relieve stress and tension,service_images/massage.jpg
 5,Bridal Makeup,100.00,Complete bridal makeup package for your special day,service_images/bridal.jpg
 6,Hair Coloring,75.00,Professional hair coloring service with premium products,service_images/hair-color.jpg
-7,Waxing,30.00
-8,Skin Treatment,55.00 
+7,Waxing,30.00,Professional waxing services for smooth and silky skin,service_images/waxing.jpg
+8,Skin Treatment,55.00,Advanced skin treatments for various skin concerns,service_images/skin-treatment.jpg 
