@@ -24,10 +24,7 @@ public class BookingService {
         if (fileHandler != null) {
             this.bookings = fileHandler.loadBookings(); 
         } else {
-            // Handle case where fileHandler might not be set, though it should be by the controller
             System.err.println("BookingService WARN: FileHandler is null in getAllBookings. Returning potentially stale or empty list.");
-            // Optionally, return an empty list or throw an error if fileHandler is critical here
-            // this.bookings = new ArrayList<>(); // Or ensure it's empty if filehandler is missing
         }
         return bookings;
     }
