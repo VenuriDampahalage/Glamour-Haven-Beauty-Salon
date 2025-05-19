@@ -3,8 +3,7 @@ package com.salon.service;
 import com.salon.model.Review;
 import java.util.ArrayList;
 import java.util.List;
-import jakarta.servlet.ServletContext; // Correct import
-
+import jakarta.servlet.ServletContext; 
 public class ReviewService {
     private List<Review> reviews = new ArrayList<>();
     private FileHandler fileHandler = new FileHandler();
