@@ -375,7 +375,7 @@
 
         <div class="add-employee-card">
             <h3>Add New Employee</h3>
-            <form action="employee" method="post">
+            <form action="employee" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="action" value="add">
                 <div class="form-grid">
                     <div class="form-group">
@@ -385,6 +385,10 @@
                     <div class="form-group">
                         <label class="form-label">Specialization</label>
                         <input type="text" name="specialization" class="form-input" placeholder="Enter specialization" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Profile Image</label>
+                        <input type="file" name="image" class="form-input" accept="image/*">
                     </div>
                 </div>
                 <button type="submit" class="add-button">
