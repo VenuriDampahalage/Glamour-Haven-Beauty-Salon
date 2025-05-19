@@ -20,7 +20,7 @@ public class AdminDashboardController extends HttpServlet {
         FileHandler fileHandler = new FileHandler();
         fileHandler.setServletContext(getServletContext());
         
-        // Initialize all services
+    
         bookingService = new BookingService();
         bookingService.setFileHandler(fileHandler);
         
@@ -36,19 +36,19 @@ public class AdminDashboardController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Get counts from services
+    
         int totalBookings = bookingService.getAllBookings().size();
         int activeUsers = customerService.getAllCustomers().size();
         int staffMembers = employeeService.getAllEmployees().size();
         int servicesOffered = serviceService.getAllServices().size();
 
-        // Set attributes for the JSP
+    
         request.setAttribute("totalBookings", totalBookings);
         request.setAttribute("activeUsers", activeUsers);
         request.setAttribute("staffMembers", staffMembers);
         request.setAttribute("servicesOffered", servicesOffered);
 
-        // Forward to the dashboard
+    
         request.getRequestDispatcher("/adminDashboard.jsp").forward(request, response);
     }
 } 
