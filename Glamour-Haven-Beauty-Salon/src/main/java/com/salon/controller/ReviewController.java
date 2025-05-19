@@ -49,7 +49,6 @@ public class ReviewController extends HttpServlet {
         String action = request.getParameter("action");
 
         if ("showReviewForm".equals(action)) {
-            // Ensure user is logged in before showing the form
             HttpSession session = request.getSession(false);
             if (session == null || session.getAttribute("customer") == null) {
                 response.sendRedirect(request.getContextPath() + "/login.jsp");
@@ -57,7 +56,6 @@ public class ReviewController extends HttpServlet {
             }
             request.getRequestDispatcher("/reviewForm.jsp").forward(request, response);
         } else {
-            // Default GET behavior (or handle other actions)
             response.sendRedirect(request.getContextPath() + "/CustomerController?action=viewDashboard");
         }
     }
