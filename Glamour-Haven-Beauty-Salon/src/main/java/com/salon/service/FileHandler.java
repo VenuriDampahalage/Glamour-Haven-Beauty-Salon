@@ -166,7 +166,7 @@ public class FileHandler {
                                 parts[1],
                                 Double.parseDouble(parts[2]),
                                 "", // Empty description
-                                "default-service-image.jpg" // Default image
+                                "images/default-service.jpg" // Default image
                         ));
                     } else if (parts.length == 5) {
                         // New format: id, name, price, description, imagePath
