@@ -1,6 +1,8 @@
 # Glamour Haven Beauty Salon 🌸
 
-A premium, full-featured web application for a modern beauty salon, designed to provide a seamless booking experience and a stunning visual showcase of services and expertise.
+**Glamour Haven** is a premium, full-stack salon management application engineered to bridge the gap between high-end beauty services and seamless digital experiences. Built with a robust Java EE backend and a meticulously crafted JSP/Servlet architecture, the platform features a stunning, performance-optimized frontend that prioritizes both aesthetics and speed. 
+
+Beyond its elegant visual interface, Glamour Haven boasts a sophisticated service booking engine, a secure multi-role authentication system, and a comprehensive administrative dashboard for real-time management of salon operations. By centralizing core logic and optimizing asset delivery, this project demonstrates a commitment to both technical excellence and a user-centric design philosophy.
 
 ![Glamour Haven Banner](https://images.unsplash.com/photo-1560066984-138dadb4c035?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80)
 
@@ -12,6 +14,7 @@ A premium, full-featured web application for a modern beauty salon, designed to 
 - **👥 Team Showcase**: Dedicated section highlighting the expertise and specializations of the beauty professionals.
 - **🖼️ Interactive Gallery**: A visually appealing showcase of transformations and salon results.
 - **🔐 Secure Authentication**: Full customer registration and login system with session management.
+- **📊 Admin Intelligence**: A powerful management dashboard featuring a real-time booking calendar (integrated with FullCalendar API), quick-action controls, and data-driven insights.
 - **💬 Customer Reviews**: Integrated review system to build trust and social proof.
 
 ## 🛠️ Tech Stack
