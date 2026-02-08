@@ -2,16 +2,11 @@
     <%-- taglib 'c' provided by header.jspf prelude --%>
 
         <style>
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-            }
-
-            body {
+            .auth-page-wrapper {
                 font-family: 'Poppins', sans-serif;
                 background: linear-gradient(135deg, #fce8f3 0%, #ffffff 100%);
-                min-height: 100vh;
+                min-height: calc(100vh - 70px);
+                /* Adjust for header height */
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -60,8 +55,9 @@
             }
 
             .login-header {
-                text-align: center;
+                text-align: start;
                 margin-bottom: 2.5rem;
+                position: static;
             }
 
             .login-header h1 {
@@ -198,46 +194,49 @@
                 }
             }
         </style>
-        <div class="login-container">
-            <div class="login-image">
-                <div class="login-image-text">
-                    <h2>Welcome Back</h2>
-                    <p>Experience luxury beauty treatments in a serene environment</p>
-                </div>
-            </div>
-            <div class="login-form-container">
-                <div class="login-header">
-                    <h1>Login to Your Account</h1>
-                    <p>Please enter your credentials to continue</p>
-                </div>
-                <% if (request.getAttribute("error") !=null) { %>
-                    <div class="error-message">
-                        <%= request.getAttribute("error") %>
+        <div class="auth-page-wrapper">
+            <div class="login-container">
+                <div class="login-image">
+                    <div class="login-image-text">
+                        <h2>Welcome Back</h2>
+                        <p>Experience luxury beauty treatments in a serene environment</p>
                     </div>
-                    <% } %>
-                        <form action="CustomerController" method="post">
-                            <input type="hidden" name="action" value="login">
-                            <div class="form-group">
-                                <i class="fas fa-user"></i>
-                                <input type="text" name="username" class="form-input" placeholder="Username" required>
-                            </div>
-                            <div class="form-group">
-                                <i class="fas fa-lock"></i>
-                                <input type="password" name="password" class="form-input" placeholder="Password"
-                                    required>
-                            </div>
-                            <div class="remember-forgot">
-                                <label class="remember-me">
-                                    <input type="checkbox" name="remember">
-                                    Remember me
-                                </label>
-                                <a href="#" class="forgot-password">Forgot Password?</a>
-                            </div>
-                            <button type="submit" class="login-button">Login</button>
-                        </form>
-                        <div class="register-link">
-                            Don't have an account? <a href="register.jsp">Sign Up</a>
+                </div>
+                <div class="login-form-container">
+                    <div class="login-header">
+                        <h1>Login to Your Account</h1>
+                        <p>Please enter your credentials to continue</p>
+                    </div>
+                    <% if (request.getAttribute("error") !=null) { %>
+                        <div class="error-message">
+                            <%= request.getAttribute("error") %>
                         </div>
+                        <% } %>
+                            <form action="CustomerController" method="post">
+                                <input type="hidden" name="action" value="login">
+                                <div class="form-group">
+                                    <i class="fas fa-user"></i>
+                                    <input type="text" name="username" class="form-input" placeholder="Username"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <i class="fas fa-lock"></i>
+                                    <input type="password" name="password" class="form-input" placeholder="Password"
+                                        required>
+                                </div>
+                                <div class="remember-forgot">
+                                    <label class="remember-me">
+                                        <input type="checkbox" name="remember">
+                                        Remember me
+                                    </label>
+                                    <a href="#" class="forgot-password">Forgot Password?</a>
+                                </div>
+                                <button type="submit" class="login-button">Login</button>
+                            </form>
+                            <div class="register-link">
+                                Don't have an account? <a href="register.jsp">Sign Up</a>
+                            </div>
+                </div>
             </div>
         </div>
         <%-- footer.jspf coda automatically included --%>

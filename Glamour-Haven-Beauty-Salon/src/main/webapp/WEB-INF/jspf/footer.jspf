@@ -3,7 +3,7 @@
     .footer {
         background: linear-gradient(135deg, #ff69b4 0%, #ffc0cb 100%);
         padding: 4rem 0 2rem;
-        position: relative;
+        position: static;
         width: 100%;
         box-shadow: 0 -2px 20px rgba(255, 105, 180, 0.15);
     }
