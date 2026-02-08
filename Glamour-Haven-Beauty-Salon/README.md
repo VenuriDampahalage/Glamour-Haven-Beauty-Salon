@@ -37,22 +37,4 @@ Beyond its elegant visual interface, Glamour Haven boasts a sophisticated servic
 - Apache Tomcat 9.0+
 - Maven 3.6+
 
-### Installation
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/glamour-haven.git
-   ```
-2. Build the project:
-   ```bash
-   mvn clean install
-   ```
-3. Deploy the resulting `.war` file to your Tomcat server.
-
-## 📸 Screenshots
-
-| Home Page | Services |
-|:---:|:---:|
-| ![Home](https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80) | ![Services](https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80) |
-
----
 *Created with passion for beauty and excellence in coding.*
