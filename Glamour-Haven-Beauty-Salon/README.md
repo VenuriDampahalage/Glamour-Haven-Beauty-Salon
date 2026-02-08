@@ -1,8 +1,8 @@
 # Glamour Haven Beauty Salon 🌸
 
-**Glamour Haven** is a premium, full-stack salon management application engineered to bridge the gap between high-end beauty services and seamless digital experiences. Built with a robust Java EE backend and a meticulously crafted JSP/Servlet architecture, the platform features a stunning, performance-optimized frontend that prioritizes both aesthetics and speed. 
+**Glamour Haven** is a premium, full-stack salon management application designed to bridge the gap between high-end beauty services and seamless digital experiences. Built with a Java EE backend using JSP, Servlets, and JSTL, the system follows an MVC-style structure to ensure clean separation between presentation, control, and business logic. The platform features a performance-optimized frontend that balances elegant visuals with fast, responsive interactions.
 
-Beyond its elegant visual interface, Glamour Haven boasts a sophisticated service booking engine, a secure multi-role authentication system, and a comprehensive administrative dashboard for real-time management of salon operations. By centralizing core logic and optimizing asset delivery, this project demonstrates a commitment to both technical excellence and a user-centric design philosophy.
+Beyond its user-facing design, Glamour Haven includes a service booking engine, secure multi-role authentication, and an administrative dashboard for managing salon operations in real time. By centralizing core logic and optimizing asset delivery, the project reflects a strong focus on maintainability, scalability, and user-centric design.
 
 
 ## ✨ Key Features
@@ -15,6 +15,8 @@ Beyond its elegant visual interface, Glamour Haven boasts a sophisticated servic
 - **🔐 Secure Authentication**: Full customer registration and login system with session management.
 - **📊 Admin Intelligence**: A powerful management dashboard featuring a real-time booking calendar (integrated with FullCalendar API), quick-action controls, and data-driven insights.
 - **💬 Customer Reviews**: Integrated review system to build trust and social proof.
+- **Architecture**: MVC-style separation with JSP for views, Servlets as controllers, and centralized business logic for scalability.
+
 
 ## 🛠️ Tech Stack
 
@@ -37,3 +39,9 @@ Beyond its elegant visual interface, Glamour Haven boasts a sophisticated servic
 - Maven 3.6+
 
 *Created with passion for beauty and excellence in coding.*
+
+### Run Locally
+1. Clone the repository
+2. Import the project into your IDE as a Maven project
+3. Configure Apache Tomcat 9+
+4. Deploy and access via `http://localhost:8080/`
